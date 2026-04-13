@@ -1,0 +1,32 @@
+name: Frontend CI (React + Vite)
+
+on:
+  push:
+    paths:
+      - "hrms-frontend/**"
+  pull_request:
+    paths:
+      - "hrms-frontend/**"
+
+jobs:
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: hrms-frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: hrms-frontend
+        run: npm install
+
+      - name: Build
+        working-directory: hrms-frontend
+        run: npm run build
