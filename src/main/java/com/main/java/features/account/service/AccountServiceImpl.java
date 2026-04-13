@@ -18,10 +18,5 @@ public class AccountServiceImpl implements AccountService {
 	public void createUser(Account account) {
 		accountRepo.save(account);
 	}
-
-	@Override
-	public Account findByEmpId(UUID empId) {
-		return accountRepo.findByEmpId(empId);
-	}
 	
 }
