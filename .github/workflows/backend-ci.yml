@@ -17,21 +17,21 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: hrms_db
-          POSTGRES_USER: hrms_user
-          POSTGRES_PASSWORD: hrms_password
+          POSTGRES_DB: default_db
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U hrms_user"
+          --health-cmd="pg_isready -U user"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
 
     env:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/hrms_db
-      SPRING_DATASOURCE_USERNAME: hrms_user
-      SPRING_DATASOURCE_PASSWORD: hrms_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/default_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_PROFILES_ACTIVE: ci
 

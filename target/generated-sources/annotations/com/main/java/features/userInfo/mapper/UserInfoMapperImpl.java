@@ -8,23 +8,23 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-13T11:10:09+0630",
+    date = "2026-04-13T11:38:42+0630",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260224-0835, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class UserInfoMapperImpl implements UserInfoMapper {
 
     @Override
-    public UserInfo toEntity(UserInfoRequest arg0) {
-        if ( arg0 == null ) {
+    public UserInfo toEntity(UserInfoRequest req) {
+        if ( req == null ) {
             return null;
         }
 
         UserInfo userInfo = new UserInfo();
 
-        userInfo.setStatus( arg0.getStatus() );
-        userInfo.setJoinDate( arg0.getJoinDate() );
-        userInfo.setResignDate( arg0.getResignDate() );
+        userInfo.setJoinDate( req.getJoinDate() );
+        userInfo.setResignDate( req.getResignDate() );
+        userInfo.setStatus( req.getStatus() );
 
         return userInfo;
     }
@@ -37,21 +37,21 @@ public class UserInfoMapperImpl implements UserInfoMapper {
 
         UserInfoResponse userInfoResponse = new UserInfoResponse();
 
-        userInfoResponse.setStatus( entity.getStatus() );
         userInfoResponse.setJoinDate( entity.getJoinDate() );
         userInfoResponse.setResignDate( entity.getResignDate() );
+        userInfoResponse.setStatus( entity.getStatus() );
 
         return userInfoResponse;
     }
 
     @Override
-    public void updateEntityFromRequestDto(UserInfoRequest arg0, UserInfo arg1) {
-        if ( arg0 == null ) {
+    public void updateEntityFromRequestDto(UserInfoRequest request, UserInfo entity) {
+        if ( request == null ) {
             return;
         }
 
-        arg1.setStatus( arg0.getStatus() );
-        arg1.setJoinDate( arg0.getJoinDate() );
-        arg1.setResignDate( arg0.getResignDate() );
+        entity.setJoinDate( request.getJoinDate() );
+        entity.setResignDate( request.getResignDate() );
+        entity.setStatus( request.getStatus() );
     }
 }
