@@ -5,4 +5,7 @@ import com.main.java.features.account.dto.response.AccountResponse;
 import com.main.java.service.BaseService;
 
 public interface AccountService extends BaseService<AccountRequest, AccountResponse> {
+
+    AccountResponse findByUsername(String username);
+
 }

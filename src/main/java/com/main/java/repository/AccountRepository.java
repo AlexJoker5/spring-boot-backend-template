@@ -7,4 +7,6 @@ import com.main.java.entity.Account;
 @Repository
 public interface AccountRepository extends BaseRepository<Account>{
 
+    Account findByUsername(String username);
+
 }

@@ -1,5 +1,6 @@
 package com.main.java.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -10,7 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Account extends BaseEntity{
-	
+
+	@Column(unique = true)
 	private String username;
 	
 	private String password;
