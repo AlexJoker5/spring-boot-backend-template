@@ -3,13 +3,11 @@ name: Backend CI (Spring Boot)
 on:
   push:
     branches: [develop]
-    paths:
-      - "hrms-backend/**"
+    paths: ["**"]
 
   pull_request:
     branches: [develop]
-    paths:
-      - "hrms-backend/**"
+    paths: ["**"]
 
 jobs:
   backend-build:
@@ -52,7 +50,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('hrms-backend/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
