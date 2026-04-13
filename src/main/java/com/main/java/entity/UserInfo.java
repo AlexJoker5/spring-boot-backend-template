@@ -16,11 +16,6 @@ public class UserInfo extends BaseEntity{
 
 	private String lastName;
 	
-	/*
-	 * Employee Status (E.g. Active, Resigned, Terminated)
-	 */
-	private String status;
-	
 	@Column(name = "join_date")
 	private LocalDateTime joinDate;
 	
