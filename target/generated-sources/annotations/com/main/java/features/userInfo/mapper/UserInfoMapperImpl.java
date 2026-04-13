@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-13T17:14:27+0630",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.12 (Oracle Corporation)"
+    date = "2026-04-13T20:50:46+0630",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260224-0835, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class UserInfoMapperImpl implements UserInfoMapper {
@@ -22,16 +22,16 @@ public class UserInfoMapperImpl implements UserInfoMapper {
     private AccountMapper accountMapper;
 
     @Override
-    public void updateEntityFromRequestDto(UserInfoRequest request, UserInfo entity) {
-        if ( request == null ) {
+    public void updateEntityFromRequestDto(UserInfoRequest arg0, UserInfo arg1) {
+        if ( arg0 == null ) {
             return;
         }
 
-        entity.setFirstName( request.getFirstName() );
-        entity.setLastName( request.getLastName() );
-        entity.setJoinDate( request.getJoinDate() );
-        entity.setResignDate( request.getResignDate() );
-        entity.setAccountId( accountMapper.fromId( request.getAccountId() ) );
+        arg1.setFirstName( arg0.getFirstName() );
+        arg1.setLastName( arg0.getLastName() );
+        arg1.setJoinDate( arg0.getJoinDate() );
+        arg1.setResignDate( arg0.getResignDate() );
+        arg1.setAccountId( accountMapper.fromId( arg0.getAccountId() ) );
     }
 
     @Override

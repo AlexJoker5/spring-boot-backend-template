@@ -1,5 +1,6 @@
 package com.main.java.features.account.dto.request;
 
+import com.main.java.common.CommonConstants;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -27,8 +28,6 @@ public class AccountRequest {
     )
     private String role;
 
-    @NotEmpty(message = "Status must not be empty")
-    @Size(max = 15, message = "Status length must not be greater than 15")
     private String status;
 
 }

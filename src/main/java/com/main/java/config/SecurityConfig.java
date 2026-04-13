@@ -20,6 +20,16 @@ public class SecurityConfig {
 						.requestMatchers("/error").permitAll()
 						.anyRequest().authenticated()
 				)
+				.formLogin(form -> form
+						.loginPage("/login")
+						.defaultSuccessUrl("/home")
+						.failureForwardUrl("/login?error")
+						.permitAll()
+				)
+				.logout(log -> log
+						.logoutSuccessUrl("/login")
+						.permitAll()
+				)
 				.build();
 	}
 

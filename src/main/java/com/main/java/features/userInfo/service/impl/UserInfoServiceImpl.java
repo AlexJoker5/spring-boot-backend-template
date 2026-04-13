@@ -23,32 +23,32 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 	private final UserInfoMapper userInfoMapper;
 
 	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, AccountRepository accountRepo, UserInfoMapper userInfoMapper) {
-		super(userInfoRepo);
+		super(userInfoRepo, userInfoMapper);
 		this.userInfoRepo = userInfoRepo;
 		this.accountRepo = accountRepo;
 		this.userInfoMapper = userInfoMapper;
 	}
 
-	@Override
-	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
-		UserInfo userInfo = userInfoMapper.toEntity(request);
-		if(request.getAccountId() != null) {
-			Account account = accountRepo.findById(request.getAccountId())
-					.orElseThrow(() -> new EntityNotFoundException(
-							"Account not found with id: " + request.getAccountId()
-					));
-			userInfo.setAccountId(account);
-		}
-		return userInfo;
-	}
-
-	@Override
-	protected UserInfoResponse mapEntityToResponse(UserInfo entity) {
-		return userInfoMapper.toResponseDto(entity);
-	}
-
-	@Override
-	protected void updateEntityFromRequest(UserInfoRequest request, UserInfo entity) {
-		userInfoMapper.updateEntityFromRequestDto(request, entity);
-	}
+//	@Override
+//	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
+//		UserInfo userInfo = userInfoMapper.toEntity(request);
+//		if(request.getAccountId() != null) {
+//			Account account = accountRepo.findById(request.getAccountId())
+//					.orElseThrow(() -> new EntityNotFoundException(
+//							"Account not found with id: " + request.getAccountId()
+//					));
+//			userInfo.setAccountId(account);
+//		}
+//		return userInfo;
+//	}
+//
+//	@Override
+//	protected UserInfoResponse mapEntityToResponse(UserInfo entity) {
+//		return userInfoMapper.toResponseDto(entity);
+//	}
+//
+//	@Override
+//	protected void updateEntityFromRequest(UserInfoRequest request, UserInfo entity) {
+//		userInfoMapper.updateEntityFromRequestDto(request, entity);
+//	}
 }
