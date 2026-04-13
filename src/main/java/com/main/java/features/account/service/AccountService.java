@@ -1,9 +1,8 @@
 package com.main.java.features.account.service;
 
-import com.main.java.entity.Account;
+import com.main.java.features.account.dto.request.AccountRequest;
+import com.main.java.features.account.dto.response.AccountResponse;
+import com.main.java.service.BaseService;
 
-public interface AccountService {
-
-	void createUser(Account account);
-
+public interface AccountService extends BaseService<AccountRequest, AccountResponse> {
 }

@@ -1,6 +1,10 @@
 package com.main.java.features.userInfo.service.impl;
 
+import com.main.java.entity.Account;
+import com.main.java.features.account.service.AccountService;
+import com.main.java.repository.AccountRepository;
 import com.main.java.service.impl.BaseServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.main.java.entity.UserInfo;
@@ -15,30 +19,36 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 		implements UserInfoService {
 
 	private final UserInfoRepository userInfoRepo;
-//	private final AccountRepo accountRepo;
-//	private final BCryptPasswordEncoder passwordEncoder;
-	private final UserInfoMapper mapper;
+	private final AccountRepository accountRepo;
+	private final UserInfoMapper userInfoMapper;
 
-	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, UserInfoMapper mapper) {
+	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, AccountRepository accountRepo, UserInfoMapper userInfoMapper) {
 		super(userInfoRepo);
 		this.userInfoRepo = userInfoRepo;
-//		this.accountRepo = accountRepo;
-//		this.passwordEncoder = passwordEncoder;
-		this.mapper = mapper;
+		this.accountRepo = accountRepo;
+		this.userInfoMapper = userInfoMapper;
 	}
 
 	@Override
 	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
-		return mapper.toEntity(request);
+		UserInfo userInfo = userInfoMapper.toEntity(request);
+		if(request.getAccountId() != null) {
+			Account account = accountRepo.findById(request.getAccountId())
+					.orElseThrow(() -> new EntityNotFoundException(
+							"Account not found with id: " + request.getAccountId()
+					));
+			userInfo.setAccountId(account);
+		}
+		return userInfo;
 	}
 
 	@Override
 	protected UserInfoResponse mapEntityToResponse(UserInfo entity) {
-		return mapper.toResponseDto(entity);
+		return userInfoMapper.toResponseDto(entity);
 	}
 
 	@Override
 	protected void updateEntityFromRequest(UserInfoRequest request, UserInfo entity) {
-		mapper.updateEntityFromRequestDto(request, entity);
+		userInfoMapper.updateEntityFromRequestDto(request, entity);
 	}
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.main.java.entity.Account;
 
 @Repository
-public interface AccountRepo extends BaseRepository<Account>{
+public interface AccountRepository extends BaseRepository<Account>{
 
 }
