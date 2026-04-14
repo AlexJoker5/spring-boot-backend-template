@@ -1,5 +1,6 @@
 package com.main.java.features.userInfo.service.impl;
 
+import com.main.java.common.RepoHelper;
 import com.main.java.entity.Account;
 import com.main.java.features.account.service.AccountService;
 import com.main.java.repository.AccountRepository;
@@ -23,32 +24,26 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 	private final UserInfoMapper userInfoMapper;
 
 	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, AccountRepository accountRepo, UserInfoMapper userInfoMapper) {
-		super(userInfoRepo, userInfoMapper);
+		super(userInfoRepo);
 		this.userInfoRepo = userInfoRepo;
 		this.accountRepo = accountRepo;
 		this.userInfoMapper = userInfoMapper;
 	}
 
-//	@Override
-//	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
-//		UserInfo userInfo = userInfoMapper.toEntity(request);
-//		if(request.getAccountId() != null) {
-//			Account account = accountRepo.findById(request.getAccountId())
-//					.orElseThrow(() -> new EntityNotFoundException(
-//							"Account not found with id: " + request.getAccountId()
-//					));
-//			userInfo.setAccountId(account);
-//		}
-//		return userInfo;
-//	}
-//
-//	@Override
-//	protected UserInfoResponse mapEntityToResponse(UserInfo entity) {
-//		return userInfoMapper.toResponseDto(entity);
-//	}
-//
-//	@Override
-//	protected void updateEntityFromRequest(UserInfoRequest request, UserInfo entity) {
-//		userInfoMapper.updateEntityFromRequestDto(request, entity);
-//	}
+	@Override
+	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
+		Account account = RepoHelper.findByIdOrThrow(accountRepo, request.accountId(), "Account", "account id");
+		return userInfoMapper.toEntity(request, account);
+	}
+
+	@Override
+	protected UserInfoResponse mapEntitytoResponse(UserInfo entity) {
+		return userInfoMapper.toResponse(entity);
+	}
+
+	@Override
+	protected void updateEntityFromRequest(UserInfo entity, UserInfoRequest request) {
+		Account account = RepoHelper.findByIdOrThrow(accountRepo, request.accountId(), "Account", "account id");
+		userInfoMapper.updateEntity(entity, request, account);
+	}
 }

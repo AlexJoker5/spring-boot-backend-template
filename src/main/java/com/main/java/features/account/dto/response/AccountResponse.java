@@ -1,16 +1,19 @@
 package com.main.java.features.account.dto.response;
 
+import com.main.java.mapper.BaseData;
+import lombok.Builder;
 import lombok.Data;
 
-@Data
-public class AccountResponse {
+@Builder
+public record AccountResponse (
+        String username,
 
-    private String username;
+        String password,
 
-    private String password;
+        String role,
 
-    private String role;
+        String status,
 
-    private String status;
-
+        BaseData baseData
+){
 }
