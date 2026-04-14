@@ -67,7 +67,7 @@ public class AddressController {
 	
 	@DeleteMapping("/batch")
 	public ResponseEntity<String> deleteMany(@RequestBody List<UUID> ids){
-		addressService.deletebyMany(ids);
+		addressService.deleteByMany(ids);
 		return ResponseEntity.noContent().build();
 	}
 	

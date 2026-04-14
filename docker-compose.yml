@@ -11,7 +11,7 @@ services:
       - postgresdb
   postgresdb:
     image: postgres:18.1
-    container_name: fineract
+    container_name: backend_template
     ports:
       - "5432:5432"
     environment:

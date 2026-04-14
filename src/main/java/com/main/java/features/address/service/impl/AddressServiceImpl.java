@@ -1,8 +1,7 @@
-package com.main.java.features.address.serviceÍmpl;
+package com.main.java.features.address.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.main.java.common.RepoHelper;
 import com.main.java.entity.Address;
 import com.main.java.entity.UserInfo;
 import com.main.java.features.address.dto.request.AddressRequest;
@@ -16,29 +15,16 @@ import com.main.java.service.impl.BaseServiceImpl;
 @Service
 public class AddressServiceImpl extends BaseServiceImpl<Address, AddressRequest, AddressResponse >  implements AddressService{
 
-	private final AddressRepository addressRepo;
-	private final UserInfoRepository userInfoRepo;
 	private final AddressMapper addressMapper;
 	
-	public AddressServiceImpl(AddressRepository addressRepo, AddressMapper addressMapper, UserInfoRepository userInfoRepo) {
+	public AddressServiceImpl(AddressRepository addressRepo, AddressMapper addressMapper) {
 		super(addressRepo);
-		this.addressRepo = addressRepo;
 		this.addressMapper = addressMapper;
-		this.userInfoRepo = userInfoRepo;
-		
 	}
-	
-	
-
-//	@Override
-//	public AddressResponse findByTownship(String township) {
-//		Address address = addressRepo.findByTownship(township);
-//		return null;
-//	}
 
 	@Override
 	protected Address mapRequestToEntity(AddressRequest request) {
-		UserInfo userInfo = RepoHelper.findByIdOrThrow(userInfoRepo, request.userId(), "Address", "address id");
+		UserInfo userInfo = findByIdOrThrow(request.userId()).getUserInfo();
 		return addressMapper.toEntity(request, userInfo);
 	}
 
@@ -49,8 +35,8 @@ public class AddressServiceImpl extends BaseServiceImpl<Address, AddressRequest,
 
 	@Override
 	protected void updateEntityFromRequest(Address entity, AddressRequest request) {
-		UserInfo userInfo = RepoHelper.findByIdOrThrow(userInfoRepo, request.userId(), "Address", "address id");
-			addressMapper.updateEntity(entity, request, userInfo);
+		UserInfo userInfo = findByIdOrThrow(request.userId()).getUserInfo();
+		addressMapper.updateEntity(entity, request, userInfo);
 	}
 
 }
