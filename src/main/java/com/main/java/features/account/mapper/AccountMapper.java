@@ -22,10 +22,10 @@ public class AccountMapper {
     }
 
     public AccountResponse toResponse(Account entity) {
-        if(entity == null) return null;
+        if (entity == null)
+            return null;
         return AccountResponse.builder()
                 .username(entity.getUsername())
-                .password(entity.getPassword())
                 .status(entity.getStatus())
                 .role(entity.getRole())
                 .baseData(baseDataMapper.toBasicData(entity))

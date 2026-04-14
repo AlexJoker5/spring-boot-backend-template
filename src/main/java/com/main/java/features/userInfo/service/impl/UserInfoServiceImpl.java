@@ -1,11 +1,8 @@
 package com.main.java.features.userInfo.service.impl;
 
-import com.main.java.common.RepoHelper;
 import com.main.java.entity.Account;
-import com.main.java.features.account.service.AccountService;
 import com.main.java.repository.AccountRepository;
 import com.main.java.service.impl.BaseServiceImpl;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.main.java.entity.UserInfo;
@@ -19,20 +16,16 @@ import com.main.java.repository.UserInfoRepository;
 public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoRequest, UserInfoResponse>
 		implements UserInfoService {
 
-	private final UserInfoRepository userInfoRepo;
-	private final AccountRepository accountRepo;
 	private final UserInfoMapper userInfoMapper;
 
-	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, AccountRepository accountRepo, UserInfoMapper userInfoMapper) {
+	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, UserInfoMapper userInfoMapper) {
 		super(userInfoRepo);
-		this.userInfoRepo = userInfoRepo;
-		this.accountRepo = accountRepo;
 		this.userInfoMapper = userInfoMapper;
 	}
 
 	@Override
 	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
-		Account account = RepoHelper.findByIdOrThrow(accountRepo, request.accountId(), "Account", "account id");
+		Account account = findByIdOrThrow(request.accountId()).getAccount();
 		return userInfoMapper.toEntity(request, account);
 	}
 
@@ -43,7 +36,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 
 	@Override
 	protected void updateEntityFromRequest(UserInfo entity, UserInfoRequest request) {
-		Account account = RepoHelper.findByIdOrThrow(accountRepo, request.accountId(), "Account", "account id");
+		Account account = findByIdOrThrow(request.accountId()).getAccount();
 		userInfoMapper.updateEntity(entity, request, account);
 	}
 }

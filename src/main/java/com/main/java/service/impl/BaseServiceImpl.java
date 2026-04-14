@@ -45,7 +45,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
 
     @Override
     @Transactional(readOnly = true)
-    public List<RESPONSE> findbyIds(List<UUID> ids) {
+    public List<RESPONSE> findByIds(List<UUID> ids) {
         List<ENTITY> entityList = repository.findAllById(ids);
         return entityList.stream().map(this::mapEntitytoResponse).toList();
     }
@@ -67,7 +67,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
 
     @Override
     @Transactional
-    public void deletebyMany(List<UUID> ids) {
+    public void deleteByMany(List<UUID> ids) {
         repository.deleteAllById(ids);
     }
 
@@ -79,7 +79,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
         return entityPages.map(this::mapEntitytoResponse);
     }
 
-    private ENTITY findByIdOrThrow(UUID id) {
+    protected ENTITY findByIdOrThrow(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
     }

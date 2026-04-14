@@ -6,6 +6,15 @@ import java.util.UUID;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+/**
+ * Request payload used to create or update user information.
+ *
+ * @param firstName the user's first name
+ * @param lastName the user's last name
+ * @param joinDate the user's join date
+ * @param resignDate the user's resignation date
+ * @param accountId the associated account UUID
+ */
 @Builder
 public record UserInfoRequest (
 		@NotEmpty(message = "First Name must not be empty")
