@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/v1/accounts")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AccountController {
 
@@ -30,7 +30,7 @@ public class AccountController {
     @GetMapping
     public ResponseEntity<Page<AccountResponse>> getAccounts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<AccountResponse> response = accountService.getAll(page, size);
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping
@@ -42,7 +42,7 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<AccountResponse> findById(@PathVariable UUID id, HttpServletRequest httpServletRequest) {
         AccountResponse response =accountService.findById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{id}")

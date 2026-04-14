@@ -26,4 +26,5 @@ public class UserInfo extends BaseEntity{
 	@JoinColumn(name = "account_id", nullable = false, unique = true)
 	private Account account;
 
+	
 }
