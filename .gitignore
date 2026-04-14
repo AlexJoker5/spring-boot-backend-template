@@ -145,3 +145,10 @@ vite.config.ts.timestamp-*
 
 # Jetbrains
 /.idea/
+
+# VS Code
+/.vscode/
+
+# Spring Boot
+/target/
+*.class
