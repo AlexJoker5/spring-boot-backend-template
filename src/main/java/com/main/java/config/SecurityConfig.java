@@ -7,10 +7,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Spring Security configuration for request authorization and login handling.
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 	
+	/**
+	 * Configures the security filter chain for the application.
+	 *
+	 * @param http the HttpSecurity builder
+	 * @return configured SecurityFilterChain
+	 * @throws Exception if configuration fails
+	 */
 	@Bean
 	SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 		return http

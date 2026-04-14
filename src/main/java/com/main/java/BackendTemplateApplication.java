@@ -13,17 +13,9 @@ public class BackendTemplateApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		accountRepo.save(new Account(null, "Christopher"));
-//		System.out.println(accountRepo.findAll());
-//		
-//	}
-//	
 	
 
 }

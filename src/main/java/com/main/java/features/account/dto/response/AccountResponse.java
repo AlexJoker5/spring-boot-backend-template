@@ -4,16 +4,21 @@ import com.main.java.mapper.BaseData;
 
 import lombok.Builder;
 
+/**
+ * Response payload returned for account resources.
+ *
+ * @param username the account username
+ * @param role the account role code
+ * @param status the account status
+ * @param baseData audit metadata for the account
+ */
 @Builder
-public record AccountResponse (
-        String username,
+public record AccountResponse(
+                String username,
 
-        String password,
+                String role,
 
-        String role,
+                String status,
 
-        String status,
-
-        BaseData baseData
-){
+                BaseData baseData) {
 }

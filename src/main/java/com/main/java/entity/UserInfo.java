@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA entity representing user information linked to an account.
+ */
 @Entity
 @Table(name = "user_info")
 @Getter

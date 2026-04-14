@@ -13,6 +13,9 @@ import com.main.java.entity.Account;
 import com.main.java.repository.AccountRepository;
 
 @Service
+/**
+ * Implementation of account service operations.
+ */
 public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest, AccountResponse> implements AccountService {
 
 	private final AccountRepository accountRepo;
@@ -48,6 +51,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest,
 	@Override
 	protected void updateEntityFromRequest(Account entity, AccountRequest request) {
 		accountMapper.updateEntity(entity, request);
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 	}
 
 	@Override

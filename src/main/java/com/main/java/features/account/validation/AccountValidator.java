@@ -21,7 +21,10 @@ public class AccountValidator implements ConstraintValidator<ValidateAccountType
         if(request.username() != null) {
             AccountResponse response = accountService.findByUsername(request.username());
             if(request.username().equals(response.username())) {
-                throw new AlreadyExistsException("Username", "DUPLICATE_DATA", "User with username: " + request.username() + " is already existed");
+                context.disableDefaultConstraintViolation();
+                context.buildConstraintViolationWithTemplate("User with username: " + request.username() + " already exists")
+                        .addConstraintViolation();
+                return false;
             }
         }
 

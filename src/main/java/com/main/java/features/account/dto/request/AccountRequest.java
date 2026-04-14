@@ -5,6 +5,14 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
+/**
+ * Request payload used to create or update an account.
+ *
+ * @param username the account username
+ * @param password the account password
+ * @param role the account role code
+ * @param status the account status flag
+ */
 @Builder
 public record AccountRequest (
         @NotEmpty(message = "Username must not be empty")

@@ -6,6 +6,9 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA entity representing an account record.
+ */
 @Entity
 @Table(name = "account")
 @Getter

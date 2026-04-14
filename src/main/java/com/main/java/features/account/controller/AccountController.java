@@ -8,23 +8,22 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST controller for account management endpoints.
+ */
 @RestController
 @RequestMapping("/api/v1/accounts")
-@CrossOrigin(origins = "http://localhost:5173")
 public class AccountController {
 
     private final AccountService accountService;
-    private final PasswordEncoder passwordEncoder;
 
-    public AccountController(AccountService accountService, PasswordEncoder passwordEncoder) {
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -34,33 +33,33 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountResponse> create(@Valid @RequestBody AccountRequest request, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<AccountResponse> create(@Valid @RequestBody AccountRequest request) {
         AccountResponse response = accountService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AccountResponse> findById(@PathVariable UUID id, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<AccountResponse> findById(@PathVariable UUID id) {
         AccountResponse response =accountService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AccountResponse> update(@PathVariable UUID id, @Valid @RequestBody AccountRequest request, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<AccountResponse> update(@PathVariable UUID id, @Valid @RequestBody AccountRequest request) {
         AccountResponse response =accountService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<String> delete(@PathVariable UUID id) {
         accountService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Account deleted successfully");
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/batch")
-    public ResponseEntity<String> deteteMany(@RequestBody List<UUID> ids, HttpServletRequest httpServletRequest) {
-        accountService.deletebyMany(ids);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Accounts deleted successfully");
+    public ResponseEntity<String> deleteMany(@RequestBody List<UUID> ids) {
+        accountService.deleteByMany(ids);
+        return ResponseEntity.noContent().build();
     }
 
 }
