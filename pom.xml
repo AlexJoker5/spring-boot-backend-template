@@ -10,11 +10,11 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.main</groupId>
-	<artifactId>hrms-backend</artifactId>
+	<artifactId>backend-template</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>hrms-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<name>backend-template</name>
+	<description>Spring Boot Backend Template</description>
 	<url />
 	<licenses>
 		<license />

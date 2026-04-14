@@ -20,7 +20,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest,
 	private final PasswordEncoder passwordEncoder;
 
 	public AccountServiceImpl(AccountRepository accountRepo, AccountMapper accountMapper, PasswordEncoder passwordEncoder) {
-        super(accountRepo, accountMapper);
+        super(accountRepo);
 		this.accountRepo = accountRepo;
 		this.accountMapper = accountMapper;
         this.passwordEncoder = passwordEncoder;
@@ -28,16 +28,31 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest,
 
 	@Override
 	public AccountResponse create(AccountRequest request) {
-		Account account = accountMapper.toEntity(request);
+		Account account = mapRequestToEntity(request);
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		account.setStatus(CommonConstants.IS_ACTIVE);
 		Account savedAccount = accountRepo.save(account);
-		return accountMapper.toResponseDto(savedAccount);
+		return mapEntitytoResponse(savedAccount);
+	}
+
+	@Override
+	protected Account mapRequestToEntity(AccountRequest request) {
+		return accountMapper.toEntity(request);
+	}
+
+	@Override
+	protected AccountResponse mapEntitytoResponse(Account entity) {
+		return accountMapper.toResponse(entity);
+	}
+
+	@Override
+	protected void updateEntityFromRequest(Account entity, AccountRequest request) {
+		accountMapper.updateEntity(entity, request);
 	}
 
 	@Override
 	public AccountResponse findByUsername(String username) {
 		Account account = accountRepo.findByUsername(username);
-		return accountMapper.toResponseDto(account);
+		return accountMapper.toResponse(account);
 	}
 }

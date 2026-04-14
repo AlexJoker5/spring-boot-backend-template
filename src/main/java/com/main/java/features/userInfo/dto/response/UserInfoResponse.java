@@ -1,21 +1,23 @@
 package com.main.java.features.userInfo.dto.response;
 
-import lombok.Data;
+import com.main.java.mapper.BaseData;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
-public class UserInfoResponse {
+@Builder
+public record UserInfoResponse (
+        String firstName,
 
-    private String firstName;
+        String lastName,
 
-    private String lastName;
+        LocalDateTime joinDate,
 
-    private LocalDateTime joinDate;
+        LocalDateTime resignDate,
 
-    private LocalDateTime resignDate;
+        UUID accountId,
 
-    private UUID accountId;
-
+        BaseData baseData
+){
 }

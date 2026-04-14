@@ -2,33 +2,48 @@ package com.main.java.features.userInfo.mapper;
 
 import com.main.java.entity.Account;
 import com.main.java.entity.UserInfo;
-import com.main.java.features.account.mapper.AccountMapper;
 import com.main.java.features.userInfo.dto.request.UserInfoRequest;
 import com.main.java.features.userInfo.dto.response.UserInfoResponse;
-import com.main.java.mapper.BaseMapper;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import com.main.java.mapper.BaseDataMapper;
+import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+@Component
+public class UserInfoMapper {
 
-@Mapper(componentModel = "spring", uses = {AccountMapper.class})
-public interface UserInfoMapper extends BaseMapper<UserInfo, UserInfoRequest, UserInfoResponse> {
+    private final BaseDataMapper baseDataMapper;
 
-    @Override
-    @Mapping(target = "accountId", source = "accountId.id")
-    UserInfoResponse toResponseDto(UserInfo entity);
+    public UserInfoMapper(BaseDataMapper baseDataMapper) {
+        this.baseDataMapper = baseDataMapper;
+    }
 
-    @Override
-    @Mapping(target = "accountId", source = "accountId", qualifiedByName = "uuidToAccount")
-    UserInfo toEntity(UserInfoRequest request);
+    public UserInfo toEntity(UserInfoRequest request, Account account) {
+        UserInfo entity = new UserInfo();
+        setRequestToEntity(entity, request, account);
+        return entity;
+    }
 
-    @Named("uuidToAccount")
-    default Account uuidToAccount(UUID accountId) {
-        if (accountId == null) return null;
-        Account account = new Account();
-        account.setId(accountId);
-        return account;
+    public UserInfoResponse toResponse(UserInfo entity) {
+        if(entity == null) return null;
+        return UserInfoResponse.builder()
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .joinDate(entity.getJoinDate())
+                .resignDate(entity.getResignDate())
+                .accountId(entity.getAccount().getId())
+                .baseData(baseDataMapper.toBasicData(entity))
+                .build();
+    }
+
+    public void updateEntity(UserInfo entity, UserInfoRequest request, Account account) {
+        setRequestToEntity(entity, request, account);
+    }
+
+    private void setRequestToEntity(UserInfo entity, UserInfoRequest request, Account account) {
+        entity.setFirstName(request.firstName());
+        entity.setLastName(request.lastName());
+        entity.setJoinDate(request.joinDate());
+        entity.setResignDate(request.resignDate());
+        entity.setAccount(account);
     }
 
 }
