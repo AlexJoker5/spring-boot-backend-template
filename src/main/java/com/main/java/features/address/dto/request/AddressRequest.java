@@ -13,7 +13,7 @@ import lombok.Builder;
 @Builder
 public record AddressRequest(
 		
-		@NotEmpty(message = "Region must not be empty!")
+		@NotNull(message = "Region must not be empty!")
 		MyanmarRegion region,
 		
 		@NotEmpty(message = "Township must not be empty")

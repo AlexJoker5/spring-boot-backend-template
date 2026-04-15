@@ -28,18 +28,11 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/**").permitAll()
 						.requestMatchers("/error").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll()
+						.requestMatchers("/v3/api-docs/**").permitAll()
 						.anyRequest().authenticated()
 				)
-				.formLogin(form -> form
-						.loginPage("/login")
-						.defaultSuccessUrl("/home")
-						.failureForwardUrl("/login?error")
-						.permitAll()
-				)
-				.logout(log -> log
-						.logoutSuccessUrl("/login")
-						.permitAll()
-				)
+			
 				.build();
 	}
 
