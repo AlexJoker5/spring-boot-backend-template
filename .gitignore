@@ -158,3 +158,6 @@ vite.config.ts.timestamp-*
 
 # Setting
 /.settings/
+
+# Factory Path
+.factorypath
