@@ -32,7 +32,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
     @Override
     @Transactional(readOnly = true)
     public RESPONSE findById(UUID id) {
-        ENTITY entity = findByIdOrThrow(id);
+        ENTITY entity = findByIdOrThrow(id, repository);
         return mapEntitytoResponse(entity);
     }
 
@@ -53,7 +53,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
     @Override
     @Transactional
     public RESPONSE update(UUID id, REQUEST request) {
-        ENTITY entity = findByIdOrThrow(id);
+        ENTITY entity = findByIdOrThrow(id, repository);
         updateEntityFromRequest(entity, request);
         ENTITY updatedEntity = repository.save(entity);
         return mapEntitytoResponse(updatedEntity);
@@ -79,8 +79,8 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
         return entityPages.map(this::mapEntitytoResponse);
     }
 
-    protected ENTITY findByIdOrThrow(UUID id) {
-        return repository.findById(id)
+    protected ENTITY findByIdOrThrow(UUID id, BaseRepository<ENTITY> repo) {
+        return repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
     }
 

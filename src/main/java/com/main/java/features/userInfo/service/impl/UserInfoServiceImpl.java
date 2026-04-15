@@ -17,15 +17,17 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 		implements UserInfoService {
 
 	private final UserInfoMapper userInfoMapper;
+	private final UserInfoRepository userInfoRepository;
 
-	protected UserInfoServiceImpl(UserInfoRepository userInfoRepo, UserInfoMapper userInfoMapper) {
-		super(userInfoRepo);
+	protected UserInfoServiceImpl(UserInfoRepository userInfoRepository, UserInfoMapper userInfoMapper) {
+		super(userInfoRepository);
 		this.userInfoMapper = userInfoMapper;
+		this.userInfoRepository = userInfoRepository;
 	}
 
 	@Override
 	protected UserInfo mapRequestToEntity(UserInfoRequest request) {
-		Account account = findByIdOrThrow(request.accountId()).getAccount();
+		Account account = findByIdOrThrow(request.accountId(), userInfoRepository).getAccount();
 		return userInfoMapper.toEntity(request, account);
 	}
 
@@ -36,7 +38,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo, UserInfoReque
 
 	@Override
 	protected void updateEntityFromRequest(UserInfo entity, UserInfoRequest request) {
-		Account account = findByIdOrThrow(request.accountId()).getAccount();
+		Account account = findByIdOrThrow(request.accountId(), userInfoRepository).getAccount();
 		userInfoMapper.updateEntity(entity, request, account);
 	}
 }

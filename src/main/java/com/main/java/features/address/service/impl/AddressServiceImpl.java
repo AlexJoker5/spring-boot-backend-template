@@ -16,15 +16,17 @@ import com.main.java.service.impl.BaseServiceImpl;
 public class AddressServiceImpl extends BaseServiceImpl<Address, AddressRequest, AddressResponse >  implements AddressService{
 
 	private final AddressMapper addressMapper;
+	private final AddressRepository addressRepository;
 	
-	public AddressServiceImpl(AddressRepository addressRepo, AddressMapper addressMapper) {
-		super(addressRepo);
+	public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper) {
+		super(addressRepository);
 		this.addressMapper = addressMapper;
+		this.addressRepository = addressRepository;
 	}
 
 	@Override
 	protected Address mapRequestToEntity(AddressRequest request) {
-		UserInfo userInfo = findByIdOrThrow(request.userId()).getUserInfo();
+		UserInfo userInfo = findByIdOrThrow(request.userId(), addressRepository).getUserInfo();
 		return addressMapper.toEntity(request, userInfo);
 	}
 
@@ -35,7 +37,7 @@ public class AddressServiceImpl extends BaseServiceImpl<Address, AddressRequest,
 
 	@Override
 	protected void updateEntityFromRequest(Address entity, AddressRequest request) {
-		UserInfo userInfo = findByIdOrThrow(request.userId()).getUserInfo();
+		UserInfo userInfo = findByIdOrThrow(request.userId(), addressRepository).getUserInfo();
 		addressMapper.updateEntity(entity, request, userInfo);
 	}
 
