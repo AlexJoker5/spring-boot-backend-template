@@ -79,7 +79,7 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, REQUEST, RESPON
         return entityPages.map(this::mapEntitytoResponse);
     }
 
-    protected ENTITY findByIdOrThrow(UUID id, BaseRepository<ENTITY> repo) {
+    protected <ENT extends BaseEntity> ENT findByIdOrThrow(UUID id, BaseRepository<ENT> repo) {
         return repo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
     }
