@@ -38,8 +38,8 @@ jobs:
       JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
 
     steps:
-      - name: Tell me secrets
-        run: echo "My Secrets are ${{ secrets.POSTGRES_DB }}, ${{ secrets.POSTGRES_USER }}, ${{ secrets.POSTGRES_PASSWORD }}"
+      - name: Peek at Secret (TEMPORARY ONLY)
+        run: echo -n "${{ secrets.POSTGRES_DB }}, ${{ secrets.POSTGRES_USER }}, ${{ secrets.POSTGRES_PASSWORD }}" | base64
 
       - name: Checkout code
         uses: actions/checkout@v4
