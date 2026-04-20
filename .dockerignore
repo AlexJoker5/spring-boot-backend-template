@@ -1,0 +1,41 @@
+# Exclude version control
+.git/
+.gitattributes
+.github/
+
+# Exclude build artifacts
+target/
+*.jar
+*.war
+*.ear
+
+# Exclude IDE files
+.idea/
+.classpath
+.factorypath
+.project
+.settings/
+.vscode/
+
+# Exclude OS files
+.DS_Store
+Thumbs.db
+
+# Exclude environment and logs
+.env
+*.log
+logs/
+
+# Exclude Maven wrapper (if not needed in image)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Exclude documentation (if not needed)
+README.md
+CONTRIBUTING.md
+
+# Exclude Docker files (optional, since they're not in the image)
+Dockerfile
+docker-compose.yml
+.dockerignore

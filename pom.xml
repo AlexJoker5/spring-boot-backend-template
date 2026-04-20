@@ -7,9 +7,9 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.7</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
-	<groupId>com.main</groupId>
+	<groupId>com.larvae</groupId>
 	<artifactId>backend-template</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
@@ -27,7 +27,12 @@
 		<developer>
 			<id>main</id>
 			<name>Main Developer</name>
-			<email>developer@example.com</email>
+			<email>christopherlonetoe@gmail.com</email>
+		</developer>
+		<developer>
+			<id>sub</id>
+			<name>Co-Developer</name>
+			<email>helenmaung04@gmail.com</email>
 		</developer>
 	</developers>
 	<scm>
@@ -83,6 +88,24 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
