@@ -1,6 +1,7 @@
 package com.larvae.backend_template;
 
 import com.larvae.backend_template.entity.Account;
+import com.larvae.backend_template.enums.AccountStatus;
 import com.larvae.backend_template.enums.Roles;
 import com.larvae.backend_template.features.account.repository.AccountRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -30,8 +31,8 @@ public class BackendTemplateApplication implements CommandLineRunner {
 			Account adminAcc = new Account();
 			adminAcc.setUsername("admin");
 			adminAcc.setPassword(bCryptPasswordEncoder.encode("Admin@123"));
-			adminAcc.setIsActive(true);
 			adminAcc.setRole(Roles.ROLE_ADMIN);
+			adminAcc.setStatus(AccountStatus.ACTIVE);
 			accountRepository.save(adminAcc);
 			System.out.println("Default admin account created: username=admin, password=admin123");
 		}
