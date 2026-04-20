@@ -1,4 +1,4 @@
-package com.larvae.backend_template.features.account.repository;
+package com.larvae.backend_template.features.auth.repository;
 
 import com.larvae.backend_template.repository.BaseRepository;
 import org.springframework.stereotype.Repository;

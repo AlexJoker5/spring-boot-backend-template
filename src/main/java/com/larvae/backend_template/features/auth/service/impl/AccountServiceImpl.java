@@ -1,20 +1,20 @@
-package com.larvae.backend_template.features.account.service.impl;
+package com.larvae.backend_template.features.auth.service.impl;
 
 import com.larvae.backend_template.enums.AccountStatus;
-import com.larvae.backend_template.features.account.dto.request.AccountRequest;
-import com.larvae.backend_template.features.account.dto.response.AccountResponse;
-import com.larvae.backend_template.features.account.mapper.AccountMapper;
-import com.larvae.backend_template.features.account.service.AccountService;
+import com.larvae.backend_template.features.auth.dto.request.AccountRequest;
+import com.larvae.backend_template.features.auth.dto.response.AccountResponse;
+import com.larvae.backend_template.features.auth.mapper.AccountMapper;
+import com.larvae.backend_template.features.auth.service.AccountService;
 import com.larvae.backend_template.service.impl.BaseServiceImpl;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.larvae.backend_template.entity.Account;
-import com.larvae.backend_template.features.account.repository.AccountRepository;
+import com.larvae.backend_template.features.auth.repository.AccountRepository;
 
 /**
- * Implementation of account service operations.
+ * Implementation of auth service operations.
  */
 @Service
 public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest, AccountResponse> implements AccountService {
@@ -52,6 +52,9 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest,
 	@Override
 	protected void updateEntityFromRequest(Account entity, AccountRequest request) {
 		accountMapper.updateEntity(entity, request);
+		if (request.password() != null && !request.password().isBlank()) {
+			entity.setPassword(passwordEncoder.encode(request.password()));
+		}
 	}
 
 	@Override

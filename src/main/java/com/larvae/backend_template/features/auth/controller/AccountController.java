@@ -1,10 +1,12 @@
-package com.larvae.backend_template.features.account.controller;
+package com.larvae.backend_template.features.auth.controller;
 
 import com.larvae.backend_template.common.ApiResponse;
-import com.larvae.backend_template.features.account.dto.request.AccountRequest;
-import com.larvae.backend_template.features.account.dto.response.AccountResponse;
-import com.larvae.backend_template.features.account.service.AccountService;
+import com.larvae.backend_template.features.auth.dto.request.AccountRequest;
+import com.larvae.backend_template.features.auth.dto.response.AccountResponse;
+import com.larvae.backend_template.features.auth.service.AccountService;
+import com.larvae.backend_template.security.jwt.JwtBlacklistService;
 import com.larvae.backend_template.security.jwt.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,20 +21,22 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * REST controller for account management endpoints.
+ * REST controller for auth management endpoints.
  */
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1/auth")
 public class AccountController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtTokenUtil;
     private final AccountService accountService;
+    private final JwtBlacklistService jwtBlacklistService;
 
-    public AccountController(AuthenticationManager authenticationManager, JwtUtil jwtTokenUtil, AccountService accountService) {
+    public AccountController(AuthenticationManager authenticationManager, JwtUtil jwtTokenUtil, AccountService accountService, JwtBlacklistService jwtBlacklistService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.accountService = accountService;
+        this.jwtBlacklistService = jwtBlacklistService;
     }
 
     @PostMapping("/login")
@@ -42,6 +46,16 @@ public class AccountController {
         );
         String token = jwtTokenUtil.generateToken(auth.getName(), auth.getAuthorities().iterator().next().getAuthority());
         return ApiResponse.success(Map.of("token", token));
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<Void> logout(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        if(header != null && header.startsWith("Bearer ")){
+            String token = header.substring(7);
+            jwtBlacklistService.revokeToken(token, jwtTokenUtil.extractExpiration(token).getTime());
+        }
+        return ApiResponse.success("Logged out successfully", null);
     }
 
     @GetMapping

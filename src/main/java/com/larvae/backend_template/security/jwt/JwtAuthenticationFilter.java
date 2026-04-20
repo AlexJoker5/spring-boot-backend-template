@@ -19,10 +19,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
+    private final JwtBlacklistService blacklistService;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService, JwtBlacklistService blacklistService) {
         this.jwtUtil = jwtUtil;
         this.customUserDetailsService = customUserDetailsService;
+        this.blacklistService = blacklistService;
     }
 
     @Override
@@ -33,7 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
             String username = jwtUtil.extractUsername(token);
             if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                if(jwtUtil.isTokenValid(token, username)) {
+                if(!blacklistService.isTokenRevoked(token) &&
+                        jwtUtil.isTokenValid(token, username)) {
                     String role = jwtUtil.extractRole(token);
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                             username, null, List.of(new SimpleGrantedAuthority(role))

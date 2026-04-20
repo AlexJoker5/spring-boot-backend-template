@@ -1,8 +1,8 @@
-package com.larvae.backend_template.features.account.dto.request;
+package com.larvae.backend_template.features.auth.dto.request;
 
 import com.larvae.backend_template.enums.AccountStatus;
 import com.larvae.backend_template.enums.Roles;
-import com.larvae.backend_template.features.account.validation.ValidateAccountType;
+import com.larvae.backend_template.features.auth.validation.ValidateAccountType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -10,12 +10,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 /**
- * Request payload used to create or update an account.
+ * Request payload used to create or update an auth.
  *
- * @param username the account username
- * @param password the account password
- * @param role the account role code
- * @param status the account status flag
+ * @param username the auth username
+ * @param password the auth password
+ * @param role the auth role code
+ * @param status the auth status flag
  */
 @Builder
 @ValidateAccountType

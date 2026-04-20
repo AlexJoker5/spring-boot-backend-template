@@ -13,7 +13,7 @@ import java.util.UUID;
  * @param lastName the user's last name
  * @param joinDate the user's join date
  * @param resignDate the user's resignation date
- * @param accountId the associated account UUID
+ * @param accountId the associated auth UUID
  * @param baseData audit metadata for the record
  */
 @Builder

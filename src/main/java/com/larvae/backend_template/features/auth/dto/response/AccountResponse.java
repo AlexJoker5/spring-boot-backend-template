@@ -1,4 +1,4 @@
-package com.larvae.backend_template.features.account.dto.response;
+package com.larvae.backend_template.features.auth.dto.response;
 
 import com.larvae.backend_template.enums.AccountStatus;
 import com.larvae.backend_template.enums.Roles;
@@ -7,12 +7,12 @@ import com.larvae.backend_template.mapper.BaseData;
 import lombok.Builder;
 
 /**
- * Response payload returned for account resources.
+ * Response payload returned for auth resources.
  *
- * @param username the account username
- * @param role the account role code
- * @param status the account status
- * @param baseData audit metadata for the account
+ * @param username the auth username
+ * @param role the auth role code
+ * @param status the auth status
+ * @param baseData audit metadata for the auth
  */
 @Builder
 public record AccountResponse(

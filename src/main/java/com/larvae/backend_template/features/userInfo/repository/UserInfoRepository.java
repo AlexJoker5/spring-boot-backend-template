@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface UserInfoRepository extends BaseRepository<UserInfo> {
 
-    @EntityGraph(attributePaths = {"account"})
+    @EntityGraph(attributePaths = {"auth"})
     @Override
     Page<UserInfo> findAllByIsActiveTrue(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"account"})
+    @EntityGraph(attributePaths = {"auth"})
     @Override
     List<UserInfo> findAllByIsActiveTrue();
 
