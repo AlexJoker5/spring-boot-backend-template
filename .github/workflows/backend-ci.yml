@@ -23,7 +23,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U postgres"
+          --health-cmd="pg_isready -U "
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -38,6 +38,9 @@ jobs:
       JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
 
     steps:
+      - name: Tell me secrets
+        run: echo "My Secrets are ${{ secrets.POSTGRES_DB }}, ${{ secrets.POSTGRES_USER }}, ${{ secrets.POSTGRES_PASSWORD }}
+
       - name: Checkout code
         uses: actions/checkout@v4
 
