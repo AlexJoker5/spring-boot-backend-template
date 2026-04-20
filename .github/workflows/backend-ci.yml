@@ -39,7 +39,9 @@ jobs:
 
     steps:
       - name: Peek at Secret (TEMPORARY ONLY)
-        run: echo -n "${{ secrets.POSTGRES_DB }}, ${{ secrets.POSTGRES_USER }}, ${{ secrets.POSTGRES_PASSWORD }}" | base64
+        env:
+          DB_URL: ${{ secrets.POSTGRES_DB }}
+        run: echo -n "$DB_URL" | base64
 
       - name: Checkout code
         uses: actions/checkout@v4
