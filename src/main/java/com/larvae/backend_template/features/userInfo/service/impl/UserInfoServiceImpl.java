@@ -8,7 +8,7 @@ import com.larvae.backend_template.features.userInfo.dto.request.UserInfoRequest
 import com.larvae.backend_template.features.userInfo.dto.response.UserInfoResponse;
 import com.larvae.backend_template.features.userInfo.mapper.UserInfoMapper;
 import com.larvae.backend_template.features.userInfo.service.UserInfoService;
-import com.larvae.backend_template.features.account.repository.AccountRepository;
+import com.larvae.backend_template.features.auth.repository.AccountRepository;
 import com.larvae.backend_template.features.userInfo.repository.UserInfoRepository;
 import com.larvae.backend_template.service.impl.BaseServiceImpl;
 

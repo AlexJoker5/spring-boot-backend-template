@@ -16,9 +16,11 @@ public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
     private final SecretKey key;
-    private final long expiration = 86400000; // 24 hours
 
-    public JwtUtil(@Value("${jwt.secret:mySecretKeyForJWTThatIsAtLeast64CharactersLong}") String secret) {
+    @Value("${jwt.expiration-ms:86400000}")
+    private long expiration; // 24 hours
+
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());  // Use byte array directly
     }
 
@@ -40,6 +42,11 @@ public class JwtUtil {
     public String extractRole(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build()
                 .parseClaimsJws(token).getBody().get("role", String.class);
+    }
+
+    public Date extractExpiration(String token) {
+        return Jwts.parserBuilder().setSigningKey(key).build()
+                .parseClaimsJws(token).getBody().getExpiration();
     }
 
     public boolean isTokenValid(String token, String username) {

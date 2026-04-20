@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * JPA entity representing user information linked to an account.
+ * JPA entity representing user information linked to an auth.
  */
 @Entity
 @Table(name = "user_info")

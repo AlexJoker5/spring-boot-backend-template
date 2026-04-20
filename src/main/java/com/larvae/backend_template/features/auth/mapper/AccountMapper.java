@@ -1,8 +1,8 @@
-package com.larvae.backend_template.features.account.mapper;
+package com.larvae.backend_template.features.auth.mapper;
 
 import com.larvae.backend_template.entity.Account;
-import com.larvae.backend_template.features.account.dto.request.AccountRequest;
-import com.larvae.backend_template.features.account.dto.response.AccountResponse;
+import com.larvae.backend_template.features.auth.dto.request.AccountRequest;
+import com.larvae.backend_template.features.auth.dto.response.AccountResponse;
 import com.larvae.backend_template.mapper.BaseDataMapper;
 import org.springframework.stereotype.Component;
 

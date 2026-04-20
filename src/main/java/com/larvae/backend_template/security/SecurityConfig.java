@@ -29,7 +29,7 @@ public class SecurityConfig {
 
 	private static final String [] PUBLIC_ENDPOINTS = {
 			"/api/v1/home",
-			"/api/v1/login",
+			"/api/v1/auth/login",
 			"/error",
 			"/swagger-ui/**",
 			"/swagger-ui/index.html",
@@ -54,15 +54,8 @@ public class SecurityConfig {
 						.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 						.anyRequest().authenticated()
 				)
-				.formLogin(form -> form
-						.defaultSuccessUrl("/api/v1/users")
-						.permitAll()
-				)
-				.logout(logout -> logout
-						.logoutSuccessUrl("/login")
-						.permitAll()
-				)
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//				.requiresChannel(channel -> channel.anyRequest().requiresSecure())
 				.build();
 	}
 

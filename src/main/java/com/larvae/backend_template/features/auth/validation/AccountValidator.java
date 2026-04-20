@@ -1,8 +1,8 @@
-package com.larvae.backend_template.features.account.validation;
+package com.larvae.backend_template.features.auth.validation;
 
 import com.larvae.backend_template.entity.Account;
-import com.larvae.backend_template.features.account.dto.request.AccountRequest;
-import com.larvae.backend_template.features.account.repository.AccountRepository;
+import com.larvae.backend_template.features.auth.dto.request.AccountRequest;
+import com.larvae.backend_template.features.auth.repository.AccountRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

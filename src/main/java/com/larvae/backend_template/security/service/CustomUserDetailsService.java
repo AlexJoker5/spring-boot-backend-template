@@ -1,7 +1,7 @@
 package com.larvae.backend_template.security.service;
 
 import com.larvae.backend_template.entity.Account;
-import com.larvae.backend_template.features.account.repository.AccountRepository;
+import com.larvae.backend_template.features.auth.repository.AccountRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

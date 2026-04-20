@@ -1,4 +1,4 @@
-package com.larvae.backend_template.features.account.validation;
+package com.larvae.backend_template.features.auth.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = AccountValidator.class)
 public @interface ValidateAccountType {
 
-    String message() default "Invalid account configuration";
+    String message() default "Invalid auth configuration";
 
     Class<?>[] groups() default {};
 

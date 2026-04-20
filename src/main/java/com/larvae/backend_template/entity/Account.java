@@ -8,10 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * JPA entity representing an account record.
+ * JPA entity representing an auth record.
  */
 @Entity
-@Table(name = "account")
+@Table(name = "auth")
 @Getter
 @Setter
 public class Account extends BaseEntity{
