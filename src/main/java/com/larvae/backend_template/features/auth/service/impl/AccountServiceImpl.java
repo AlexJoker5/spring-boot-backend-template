@@ -33,7 +33,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account, AccountRequest,
 	@Override
 	public AccountResponse create(AccountRequest request) {
 		Account account = mapRequestToEntity(request);
-		account.setPassword(passwordEncoder.encode(account.getPassword()));
+		account.setPassword(passwordEncoder.encode(request.password()));
 		account.setStatus(AccountStatus.ACTIVE);
 		Account savedAccount = accountRepo.save(account);
 		return mapEntityToResponse(savedAccount);

@@ -15,7 +15,7 @@
 	<packaging>jar</packaging>
 	<name>backend-template</name>
 	<description>Spring Boot Backend Template</description>
-	<url>https://github.com/main/backend-template</url>
+	<url>https://github.com/AlexJoker5/backend-template</url>
 	<licenses>
 		<license>
 			<name>Apache License 2.0</name>

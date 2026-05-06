@@ -29,8 +29,4 @@ public class JwtBlacklistService {
         return expiresAt != null && expiresAt > System.currentTimeMillis();
     }
 
-    public void cleanUpExpiredToken(String token){
-        redisTemplate.delete(token);
-    }
-
 }

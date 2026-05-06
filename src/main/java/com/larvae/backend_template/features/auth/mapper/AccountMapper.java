@@ -38,9 +38,6 @@ public class AccountMapper {
 
     private void setRequestToEntity(Account entity, AccountRequest request) {
         entity.setUsername(request.username());
-        if (request.password() != null && !request.password().isBlank()) {
-            entity.setPassword(request.password());
-        }
         entity.setStatus(request.status());
         entity.setRole(request.role());
     }

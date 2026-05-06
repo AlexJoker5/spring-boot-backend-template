@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -21,7 +22,16 @@ public class JwtUtil {
     private long expiration; // 24 hours
 
     public JwtUtil(@Value("${jwt.secret}") String secret) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());  // Use byte array directly
+        // Decode from Base64 for cleaner secret management
+        byte[] keyBytes = Base64.getDecoder().decode(secret);
+        // Validate minimum key length for HS256 (32 bytes = 256 bits)
+        if (keyBytes.length < 32) {
+            throw new IllegalArgumentException(
+                    "JWT secret key must be at least 32 bytes (256 bits) for HS256. Got: " + keyBytes.length
+            );
+        }
+
+        this.key = Keys.hmacShaKeyFor(keyBytes);  // Use byte array directly
     }
 
     public String generateToken(String username, String role) {

@@ -9,17 +9,22 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
+import java.util.UUID;
+
 /**
  * Request payload used to create or update an auth.
  *
+ * @param id the auth id
  * @param username the auth username
  * @param password the auth password
  * @param role the auth role code
  * @param status the auth status flag
  */
-@Builder
+@Builder(toBuilder = true)
 @ValidateAccountType
 public record AccountRequest (
+        UUID id,
+
         @NotEmpty(message = "Username must not be empty")
         @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
         String username,

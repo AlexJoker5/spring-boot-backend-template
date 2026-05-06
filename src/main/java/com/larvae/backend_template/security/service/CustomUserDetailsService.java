@@ -2,6 +2,7 @@ package com.larvae.backend_template.security.service;
 
 import com.larvae.backend_template.entity.Account;
 import com.larvae.backend_template.features.auth.repository.AccountRepository;
+import com.larvae.backend_template.security.AccountDetails;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,10 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Account account = accountRepository.findByUsernameAndIsActiveTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
-        return User.withUsername(account.getUsername())
-                .password(account.getPassword())
-                .authorities(account.getRole().name())
-                .build();
+        return new AccountDetails(account);
     }
 
 }
